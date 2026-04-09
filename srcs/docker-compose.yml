@@ -1,25 +1,27 @@
 services:
-  nginx:
-    build: ./requirements/nginx
-    container_name: nginx
-    ports:
-      - "443:443"
-      - "80:80"
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
     volumes:
-      - wordpress_data:/var/www/html
+      - mariadb_data:/var/lib/mysql
     networks:
-      - inception
+      - network_bridged
     restart: unless-stopped
     env_file:
       - .env
+    secrets:
+      - db_root_password
+      - db_password
 
   wordpress:
     build: ./requirements/wordpress
-    container_name: wp-php
+    container_name: wordpress
+    depends_on:
+      - mariadb
     volumes:
       - wordpress_data:/var/www/html
     networks:
-      - inception
+      - network_bridged
     restart: unless-stopped
     env_file:
       - .env
@@ -28,22 +30,23 @@ services:
       - wp_admin_password
       - wp_user_password
 
-  mariadb:
-    build: ./requirements/mariadb
-    container_name: mariadb
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - wordpress_data:/var/www/html
     networks:
-      - inception
+      - network_bridged
     restart: unless-stopped
     env_file:
       - .env
-    secrets:
-      - db_root_password
-      - db_password
 
 networks:
-  inception:
+  network_bridged:
     driver: bridge
 
 volumes:

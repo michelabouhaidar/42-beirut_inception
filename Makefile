@@ -1,20 +1,24 @@
-NAME = inception
-COMPOSE = docker compose -f srcs/docker-compose.yml
+NAME        = se-docker
+LOGIN       = $USER
+DATA_DIR    = /home/$(LOGIN)/data
+COMPOSE     = docker compose -f srcs/docker-compose.yml
 
 .PHONY: all up down re build logs ps clean fclean
 
 all: up
 
 up:
+	mkdir -p $(DATA_DIR)/wordpress $(DATA_DIR)/mariadb
 	$(COMPOSE) up -d --build
-
-build:
-	$(COMPOSE) build
 
 down:
 	$(COMPOSE) down
 
 re: down up
+
+build:
+	mkdir -p $(DATA_DIR)/wordpress $(DATA_DIR)/mariadb
+	$(COMPOSE) build
 
 logs:
 	$(COMPOSE) logs -f
@@ -28,3 +32,4 @@ clean: down
 fclean: down
 	docker system prune -af
 	docker volume prune -f
+	rm -rf $(DATA_DIR)
