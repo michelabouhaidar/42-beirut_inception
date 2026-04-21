@@ -1,5 +1,5 @@
 NAME        = se-docker
-LOGIN       = $USER
+LOGIN       := $(shell whoami)
 DATA_DIR    = /home/$(LOGIN)/data
 COMPOSE     = docker compose -f srcs/docker-compose.yml
 
