@@ -5,11 +5,13 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends nginx ca-certificates openssl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /etc/nginx/ssl
+RUN mkdir -p /etc/nginx/ssl \
+    && openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+       -keyout /etc/nginx/ssl/nginx.key \
+       -out /etc/nginx/ssl/nginx.crt \
+       -subj "/C=LB/ST=Beirut/L=Beirut/O=42/CN=mabou-ha.42.fr"
 
-COPY default /etc/nginx/sites-available/default
-COPY ssl/mabou-ha.crt /etc/nginx/ssl/nginx.crt
-COPY ssl/mabou-ha.key /etc/nginx/ssl/nginx.key
+COPY conf/default /etc/nginx/sites-available/default
 
 EXPOSE 443
 

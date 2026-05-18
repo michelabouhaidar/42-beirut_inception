@@ -1,0 +1,10 @@
+# Secrets – NEVER commit credentials
+secrets/
+
+# Environment variables (contains DB user, domain, etc.)
+srcs/.env
+
+# SSL certificates (generated at build time)
+*.key
+*.crt
+*.pem

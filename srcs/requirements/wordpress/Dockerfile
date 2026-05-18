@@ -17,8 +17,8 @@ RUN wp core download --path=/usr/src/wordpress --allow-root
 
 RUN mkdir -p /var/www/html /run/php
 
-COPY www.conf /etc/php/8.2/fpm/pool.d/www.conf
-COPY script.sh /usr/local/bin/entrypoint.sh
+COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY tools/script.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 9000
