@@ -14,7 +14,7 @@ echo "[wp-entrypoint] MariaDB is up"
 if [ ! -f /var/www/html/wp-includes/version.php ]; then
   echo "[wp-entrypoint] Copying WordPress files to volume..."
   cp -r /usr/src/wordpress/. /var/www/html/
-  chown -R www-data:www-data /var/www/html
+  chown -R nobody:nobody /var/www/html
 fi
 
 cd /var/www/html
@@ -45,4 +45,4 @@ if ! wp core is-installed --allow-root >/dev/null 2>&1; then
   fi
 fi
 
-exec /usr/sbin/php-fpm8.2 -F
+exec /usr/sbin/php-fpm82 -F

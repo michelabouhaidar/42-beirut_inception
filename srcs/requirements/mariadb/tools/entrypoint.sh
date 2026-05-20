@@ -29,7 +29,7 @@ SQL
   wait "$pid" || true
 
   log "Init complete -> starting mysqld"
-  exec mysqld --user=mysql --datadir=/var/lib/mysql
+  exec mysqld --user=mysql --datadir=/var/lib/mysql --bind-address=0.0.0.0 --port=3306
 fi
 
 log "First-time initialization"
@@ -68,4 +68,4 @@ mysqladmin --protocol=socket --socket=/run/mysqld/mysqld.sock \
 wait "$pid" || true
 
 log "Init complete -> starting mysqld"
-exec mysqld --user=mysql --datadir=/var/lib/mysql
+exec mysqld --user=mysql --datadir=/var/lib/mysql --bind-address=0.0.0.0 --port=3306
