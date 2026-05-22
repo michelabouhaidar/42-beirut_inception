@@ -7,14 +7,6 @@ COMPOSE     := docker compose -f srcs/docker-compose.yml
 SERVICES    := mariadb wordpress nginx
 
 
-RED         := \033[0;31m
-
-
-.DEFAULT_GOAL := help
-.PHONY: help all up down stop start restart re build rebuild \
-        logs ps status clean fclean prune \
-        $(addprefix logs-,$(SERVICES)) $(addprefix sh-,$(SERVICES))
-
 help:
 	@printf "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ INCEPTION _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n\n"
 	@printf ">> make up         			Build images and start the stack (detached)\n"
