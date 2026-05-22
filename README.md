@@ -95,7 +95,7 @@ Bind mounts map an arbitrary host path into a container, tightly coupling the co
 - [NGINX Documentation](https://nginx.org/en/docs/)
 - [WordPress CLI (wp-cli)](https://wp-cli.org/)
 - [MariaDB Knowledge Base](https://mariadb.com/kb/en/)
-- [Debian Docker Hub](https://hub.docker.com/_/debian)
+- [Debian Docker Hub](https://hub.docker.com/_/alpine)
 - [PID 1 and Docker best practices](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/)
 
 ### AI Usage
