@@ -6,7 +6,7 @@
 
 Inception is a system administration project that sets up a small web infrastructure using Docker Compose inside a virtual machine. The stack consists of three services — NGINX, WordPress with php-fpm, and MariaDB — each running in its own container, connected through a dedicated Docker bridge network. NGINX serves as the single entry point on port 443 with TLS, forwarding PHP requests to WordPress via FastCGI, which in turn queries MariaDB for persistent data storage.
 
-All Docker images are built from custom Dockerfiles based on Debian Bookworm. No pre-built application images are pulled from DockerHub. Sensitive credentials are managed through Docker secrets, and environment-specific variables are stored in a `.env` file that is excluded from version control.
+All Docker images are built from custom Dockerfiles based on Alpine 3.22. No pre-built application images are pulled from DockerHub. Sensitive credentials are managed through Docker secrets, and environment-specific variables are stored in a `.env` file that is excluded from version control.
 
 ### Project Description — Design Choices
 
@@ -14,7 +14,7 @@ This project uses Docker containers rather than full virtual machines to isolate
 
 Key design decisions include:
 
-- **Debian Bookworm** as the base image for all three services, chosen for its broad package availability and long-term support.
+- **Alpine 3.22** as the base image for all three services, chosen for its minimal footprint and small attack surface.
 - **Self-signed TLS certificates** generated at build time inside the NGINX container, avoiding the need to commit private keys to the repository.
 - **Docker secrets** for all passwords (database root, database user, WordPress admin, WordPress editor), read from files at container runtime.
 - **Named volumes with local driver** for WordPress files and MariaDB data, stored on the host at `/home/<login>/data/`.
@@ -103,8 +103,6 @@ Bind mounts map an arbitrary host path into a container, tightly coupling the co
 AI (Claude by Anthropic) was used during this project for the following tasks:
 
 - **Reviewing and auditing** the project structure against the subject requirements, identifying missing files and compliance issues.
-- **Generating documentation** (this README, USER_DOC.md, DEV_DOC.md) based on the actual project code and the subject specification.
 - **Restructuring** the directory layout to match the expected `conf/` and `tools/` subdirectory convention.
-- **Improving security practices**: moving from committed SSL certificates to build-time generation, and ensuring secrets are excluded from version control.
 
 All generated content was reviewed, understood, and adapted by the project author before inclusion.
