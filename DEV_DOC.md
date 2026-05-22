@@ -124,7 +124,6 @@ On subsequent starts, both entrypoints detect existing data and skip initializat
 ├── DEV_DOC.md                      # This file
 ├── .gitignore                      # Excludes secrets/, .env, certs
 ├── secrets/                        # Password files (NOT in git)
-│   ├── credentials.txt
 │   ├── db_password.txt
 │   ├── db_root_password.txt
 │   ├── wp_admin_password.txt
@@ -153,5 +152,5 @@ On subsequent starts, both entrypoints detect existing data and skip initializat
             ├── conf/
             │   └── www.conf        # php-fpm pool configuration
             └── tools/
-                └── entrypoint.sh   # WP setup + startup script
+                └── script.sh        # WP setup + startup script
 ```
