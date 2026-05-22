@@ -15,10 +15,12 @@ All three services run inside Docker containers, connected through an isolated n
 From the project root directory, run:
 
 ```
-make
+make up
 ```
 
 This builds all container images (if not already built) and starts the stack in the background. The first run takes a few minutes while Docker downloads the base Debian image and installs packages.
+
+> Running `make` alone prints the available commands help menu.
 
 ## Stopping the Project
 

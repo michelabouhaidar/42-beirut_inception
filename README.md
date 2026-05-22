@@ -65,15 +65,25 @@ Bind mounts map an arbitrary host path into a container, tightly coupling the co
 
 ### Makefile Targets
 
-| Target  | Description                                      |
-|---------|--------------------------------------------------|
-| `make`  | Build images and start all containers            |
-| `make down`  | Stop and remove containers                  |
-| `make re`    | Restart (down + up)                         |
-| `make logs`  | Follow container logs                       |
-| `make ps`    | List running containers                     |
-| `make clean` | Stop containers and prune Docker resources  |
-| `make fclean`| Full cleanup including volumes and host data|
+`make` alone prints the help menu. Use `make up` to start the stack.
+
+| Target             | Description                                              |
+|--------------------|----------------------------------------------------------|
+| `make up`          | Build images and start the stack (detached)              |
+| `make down`        | Stop and remove containers (volumes preserved)           |
+| `make stop`        | Stop containers without removing them                    |
+| `make start`       | Start previously stopped containers                      |
+| `make restart`     | Restart all containers                                   |
+| `make re`          | down + up (preserves volumes)                            |
+| `make build`       | Build images only (no start)                             |
+| `make rebuild`     | Rebuild images from scratch (no cache)                   |
+| `make logs`        | Follow logs from all containers                          |
+| `make logs-<svc>`  | Follow logs from one service (`mariadb`\|`wordpress`\|`nginx`) |
+| `make sh-<svc>`    | Open a shell inside a service container                  |
+| `make ps`          | List running containers                                  |
+| `make status`      | Detailed snapshot: containers, volumes, network, host data |
+| `make clean`       | Stop containers and prune unused Docker resources        |
+| `make fclean`      | Full reset: containers, volumes, images, host data       |
 
 ## Resources
 

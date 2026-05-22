@@ -37,14 +37,22 @@
 The Makefile orchestrates everything:
 
 ```
-make          # Creates host data dirs, builds images, starts containers
-make build    # Build images only (no start)
-make down     # Stop and remove containers
-make re       # Restart (down + up)
-make logs     # Tail all container logs
-make ps       # Show running containers
-make clean    # Stop containers + prune all Docker resources
-make fclean   # Full cleanup: prune + remove volumes + delete host data
+make             # Print the help menu (default target)
+make up          # Build images and start the stack (detached)
+make down        # Stop and remove containers (volumes preserved)
+make stop        # Stop containers without removing them
+make start       # Start previously stopped containers
+make restart     # Restart all containers
+make re          # down + up (preserves volumes)
+make build       # Build images only (no start)
+make rebuild     # Rebuild images from scratch (no cache)
+make logs        # Tail logs from all containers
+make logs-<svc>  # Tail logs from one service (mariadb|wordpress|nginx)
+make sh-<svc>    # Open a shell inside a service container
+make ps          # List running containers
+make status      # Snapshot: containers, volumes, network, host data sizes
+make clean       # Stop containers + prune unused Docker resources
+make fclean      # Full reset: containers, volumes, images, host data
 ```
 
 Under the hood, `make` runs `docker compose -f srcs/docker-compose.yml up -d --build`, which reads the Compose file, builds each image from its Dockerfile, and starts the containers.
